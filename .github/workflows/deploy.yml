@@ -1,25 +1,21 @@
-name: Deploy Static Website
+name: Deploy Static Website  # Name of your workflow
 
 on:
   push:
     branches:
-      - main
+      - main  # Triggers the deployment when code is pushed to 'main'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build:  # Job to build and deploy the site
+    runs-on: ubuntu-latest  # Uses the latest Ubuntu environment
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set Up Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+        # This action fetches your code from GitHub.
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./  # Deploy the root folder (where index.html is located)
